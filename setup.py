@@ -6,7 +6,8 @@ from setuptools import setup
 
 install_requires = [
     'minion-backend',
-    'python-dateutil'
+    'python-dateutil',
+    'pytz'
 ]
 
 setup(name="minion-ssl-plugin",
