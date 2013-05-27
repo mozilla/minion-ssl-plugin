@@ -71,6 +71,7 @@ class SSLPlugin(ExternalProcessPlugin):
 
     PLUGIN_NAME = "SSL"
     PLUGIN_VERSION = "0.1"
+    PLUGIN_WEIGHT = "light"
 
     SSLSCAN_NAME = "minion-sslscan"
 
