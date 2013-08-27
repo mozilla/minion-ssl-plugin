@@ -64,6 +64,28 @@ def parse_sslscan_report(path):
     if now > not_valid_after_date:
         issues.append({'Summary':'SSL Certificate is expired', 'Severity': 'High'})            
         
+    #
+    # Check if RSA key strong enough
+    # 
+    key_strength_info = { "FurtherInfo": [
+        {
+            "URL": "http://csrc.nist.gov/publications/nistpubs/800-131A/sp800-131A.pdf",
+            "Title": "NIST: Recommendation for Transitioning the Use of Cryptographic Algorithms and Key Lengths"
+        }
+    ]}
+
+    key_bits = int(certificate.find('pk').attrib['bits'])
+    key_type = certificate.find('pk').attrib['type']
+
+    key_length_severity_high = {'Summary':'RSA key length too low (%s bits)' % key_bits, 'Severity': 'High'}
+    key_length_severity_info = {'Summary':'RSA key length deprecated (%s bits)' % key_bits, 'Severity': 'Info'}
+
+    if key_type == 'RSA' and key_bits < 2048:
+        if key_bits < 1024:
+            issues.append(dict(key_length_severity_high.items() + key_strength_info.items()))
+        else:
+            issues.append(dict(key_length_severity_info.items() + key_strength_info.items()))
+
     return issues
 
 
