@@ -7,6 +7,7 @@ It currently only does the following checks:
 
 * Check if the obsolete SSLv2 protocol is enabled on the server
 * Check if the certificate date period is valid
+* Check for RSA key length
 
 More checks can be written based on the XML output of `sslscan`.
 
