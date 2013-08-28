@@ -104,7 +104,8 @@ class SSLPlugin(ExternalProcessPlugin):
         self.sslscan_stdout = ""
         self.sslscan_stderr = ""
         u = urlparse.urlparse(self.configuration['target'])
-        args = ["--xml=%s/report.xml" % self.work_directory]
+        args = ["--no-failed"]
+        args += ["--xml=%s/report.xml" % self.work_directory]
         args += ["%s:443" % u.hostname]
         self.spawn(sslscan_path, args)
 
